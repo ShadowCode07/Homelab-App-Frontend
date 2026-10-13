@@ -1,9 +1,20 @@
-const API_URL = import.meta.env.VITE_API_URL;
+import { apiFetch } from "./client";
 
-export async function getDevices() {
-  const res = await fetch(`${API_URL}/api/Device`);
+export function getDevices() {
+  return apiFetch("/api/Device");
+}
 
-  if (!res.ok) throw new Error(`Failed to load devices (${res.status})`);
+export function getDevice(id) {
+  return apiFetch(`/api/Device/${id}`);
+}
 
-  return res.json();
+export function createDevice(device) {
+  return apiFetch("/api/Device", {
+    method: "POST",
+    body: JSON.stringify(device),
+  });
+}
+
+export function getDeviceGroups() {
+  return apiFetch("/api/DeviceGroup");
 }
